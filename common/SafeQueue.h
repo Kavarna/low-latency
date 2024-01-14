@@ -28,6 +28,11 @@ public:
         return (nextReadIndex == nextWriteIndex) ? nullptr : &store[nextReadIndex];
     }
 
+    T *GetNextRead()
+    {
+        return (nextReadIndex == nextWriteIndex) ? nullptr : &store[nextReadIndex];
+    }
+
     void UpdateReadIndex()
     {
         nextReadIndex = (nextReadIndex + 1) % store.size();

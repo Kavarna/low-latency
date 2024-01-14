@@ -42,7 +42,7 @@ private:
     };
 
 public:
-    explicit QuickLogger(std::string const &path) : queue(1024 * 1024)
+    explicit QuickLogger(std::string const &path) : queue(1024 * 1024 * 8)
     {
         outputStream.open(path.c_str());
         CHECK_FATAL(outputStream.is_open(), "Could not open file: ", path);

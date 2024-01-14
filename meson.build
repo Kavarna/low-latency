@@ -10,15 +10,16 @@ endif
 
 gtest_dep = dependency('gtest', main : true, required : false)
 
-common_srcs = ['common/SocketUtils.cpp', 'common/TCPSocket.cpp']
-
-test_srcs = ['common/tests/basic.cpp'] + common_srcs
-server_srcs = ['server/TCPServer.cpp', 'server/tests/basic.cpp'] + common_srcs
-
 incdir = include_directories('common')
+common_srcs = ['common/SocketUtils.cpp', 'common/TCPSocket.cpp', 'common/TCPServer.cpp']
 
-tester = executable('common_tests', sources: test_srcs, include_directories : incdir, dependencies : gtest_dep)
-server = executable('server', sources: server_srcs, include_directories : incdir, dependencies : gtest_dep)
+test_srcs = ['common/tests/basic.cpp']
+
+exchange_srcs = ['exchange/main.cpp', 'exchange/matcher/MEOrder.cpp', 'exchange/matcher/MatchingEngine.cpp', 'exchange/matcher/MEOrderBook.cpp']
+
+lib = static_library('common', common_srcs)
+
+tester = executable('common_tests', sources: test_srcs, include_directories : incdir, dependencies : gtest_dep, link_with : lib)
 test('gtest test', tester)
-test('gtest test', server)
-# executable('tutorial', sources: srcs, include_directories : incdir)
+
+executable('exchange', sources: exchange_srcs, include_directories : incdir, link_with : lib)
