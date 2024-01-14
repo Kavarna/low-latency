@@ -6,8 +6,7 @@
 #include "exchange/matcher/MEOrder.h"
 #include "exchange/matcher/MatchingEngine.h"
 #include "exchange/order_server/ClientResponse.h"
-#include <asm-generic/errno.h>
-#include <cerrno>
+
 namespace Exchange
 {
 MEOrderBook::MEOrderBook(TickerId tickerId, QuickLogger *logger, MatchingEngine *matchingEngine)

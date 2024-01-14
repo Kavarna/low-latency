@@ -3,15 +3,13 @@
 #include "common/Check.h"
 #include "common/Logger.h"
 #include "common/MemoryPool.h"
+#include "common/TCPServer.h"
 #include "common/ThreadUtils.h"
 #include "common/TimeUtils.h"
-#include "common/TCPServer.h"
 
 #include <fstream>
 #include <gtest/gtest.h>
 
-#include <cstdint>
-#include <iostream>
 #include <string>
 
 void MyFunction(int firstArgument)
@@ -135,7 +133,6 @@ TEST(Basic, SocketUtils)
     SHOWINFO(GetIFaceIP("ens160"));
 }
 
-
 TEST(Basic, SimpleTest)
 {
     QuickLogger logger("server.txt");
@@ -203,4 +200,3 @@ TEST(Basic, SimpleTest)
         logger.Log("~~~~~~ Iter number ", itr, "\n");
     }
 }
-

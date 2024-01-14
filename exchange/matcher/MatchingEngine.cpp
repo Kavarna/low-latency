@@ -4,7 +4,6 @@
 #include "ThreadUtils.h"
 #include "exchange/matcher/MEOrderBook.h"
 #include "exchange/order_server/ClientRequest.h"
-#include <cassert>
 
 namespace Exchange
 {
