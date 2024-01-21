@@ -41,17 +41,37 @@ struct MEClientRequest
     Price price = Price_INVALID;
     Quantity quantity = Quantity_INVALID;
 
-    inline auto toString() const -> std::string
+    inline auto ToString(u32 indent = 0) const -> std::string
+    {
+        std::string indentString(indent, '\t');
+
+        std::stringstream ss;
+        ss << indentString << "MEClientRequest {\n";
+        ss << indentString << "\ttype: " << ClientRequestTypeToString(type) << "\n";
+        ss << indentString << "\tclientId: " << ClientIdToString(clientId) << "\n";
+        ss << indentString << "\ttickerId: " << TickerIdToString(tickerId) << "\n";
+        ss << indentString << "\torderId: " << OrderIdToString(orderId) << "\n";
+        ss << indentString << "\tside: " << SideToString(side) << "\n";
+        ss << indentString << "\tprice: " << PriceToString(price) << "\n";
+        ss << indentString << "\tquantity: " << QuantityToString(quantity) << "\n";
+        ss << indentString << "}";
+
+        return ss.str();
+    }
+};
+
+struct OMClientRequest
+{
+    u64 sequenceNumber = 0;
+    MEClientRequest clientRequest;
+
+    inline auto ToString() const -> std::string
     {
         std::stringstream ss;
-        ss << "MEClientRequest {\n";
-        ss << "\ttype: " << ClientRequestTypeToString(type) << "\n";
-        ss << "\tclientId: " << ClientIdToString(clientId) << "\n";
-        ss << "\ttickerId: " << TickerIdToString(tickerId) << "\n";
-        ss << "\torderId: " << OrderIdToString(orderId) << "\n";
-        ss << "\tside: " << SideToString(side) << "\n";
-        ss << "\tprice: " << PriceToString(price) << "\n";
-        ss << "\tquantity: " << QuantityToString(quantity) << "\n";
+
+        ss << "OMClientRequest {\n";
+        ss << "\tsequenceNumber : " << sequenceNumber << '\n';
+        ss << "\tclientRequest : " << clientRequest.ToString(1) << "\n";
         ss << "}";
 
         return ss.str();

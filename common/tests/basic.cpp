@@ -157,7 +157,7 @@ TEST(Basic, SimpleTest)
 
     const std::string iface = "lo";
     const std::string ip = "127.0.0.1";
-    const int port = 6969;
+    const i32 port = 6969;
 
     logger.Log("Creating server on iface = ", iface, " and port = ", port, "\n");
     TCPServer server(logger);

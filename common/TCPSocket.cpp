@@ -12,7 +12,7 @@ void DefaultRecvCallback(TCPSocket *socket, Nanos time)
                        "; time = ", time, "]\n");
 }
 
-Socket TCPSocket::Connect(std::string const &ip, std::string const &iface, int port, bool isListening)
+Socket TCPSocket::Connect(std::string const &ip, std::string const &iface, i32 port, bool isListening)
 {
     socket = CreateSocket(logger, ip, iface, port, false, isListening, true);
 
@@ -74,7 +74,7 @@ bool TCPSocket::RecvAndSend()
 
     if (nextSendIndex > 0)
     {
-        int n = send(socket, sendBuffer.data(), nextSendIndex, MSG_DONTWAIT);
+        i32 n = send(socket, sendBuffer.data(), nextSendIndex, MSG_DONTWAIT);
         logger.Log("Send socket ", socket, " returned ", n, "\n");
     }
     nextSendIndex = 0;

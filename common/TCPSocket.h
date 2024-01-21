@@ -27,7 +27,7 @@ public:
     TCPSocket &operator=(const TCPSocket &) = delete;
     TCPSocket &operator=(const TCPSocket &&) = delete;
 
-    Socket Connect(std::string const &ip, std::string const &iface, int port, bool isListening);
+    Socket Connect(std::string const &ip, std::string const &iface, i32 port, bool isListening);
     void Send(void const *data, size_t len);
     bool RecvAndSend();
 

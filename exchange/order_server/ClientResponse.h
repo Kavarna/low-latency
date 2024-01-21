@@ -2,6 +2,7 @@
 
 #include "SafeQueue.h"
 #include "Types.h"
+#include "exchange/order_server/ClientRequest.h"
 #include <sstream>
 
 namespace Exchange
@@ -46,23 +47,43 @@ struct MEClientResponse
     Price price = Price_INVALID;
     Quantity executed_quantity = Quantity_INVALID;
     Quantity leaves_quantity = Quantity_INVALID;
-    inline auto ToString() const -> std::string
+    inline auto ToString(u32 indent = 0) const -> std::string
     {
+        std::string indentString(indent, '\t');
+
         std::stringstream ss;
-        ss << "MEClientResponse {\n";
-        ss << "\ttype: " << ClientResponseTypeToString(type) << '\n';
-        ss << "\tclientId: " << ClientIdToString(clientId) << '\n';
-        ss << "\ttickerId: " << TickerIdToString(tickerId) << '\n';
-        ss << "\tclientOrderId: " << OrderIdToString(clientOrderId) << '\n';
-        ss << "\tmarketOrderId: " << OrderIdToString(marketOrderId) << '\n';
-        ss << "\tside: " << SideToString(side) << '\n';
-        ss << "\tprice: " << PriceToString(price) << '\n';
-        ss << "\texecuted_quantity: " << QuantityToString(executed_quantity) << '\n';
-        ss << "\tleaves_quantity: " << QuantityToString(leaves_quantity) << '\n';
-        ss << "}";
+        ss << indentString << "MEClientResponse {\n";
+        ss << indentString << "\ttype: " << ClientResponseTypeToString(type) << '\n';
+        ss << indentString << "\tclientId: " << ClientIdToString(clientId) << '\n';
+        ss << indentString << "\ttickerId: " << TickerIdToString(tickerId) << '\n';
+        ss << indentString << "\tclientOrderId: " << OrderIdToString(clientOrderId) << '\n';
+        ss << indentString << "\tmarketOrderId: " << OrderIdToString(marketOrderId) << '\n';
+        ss << indentString << "\tside: " << SideToString(side) << '\n';
+        ss << indentString << "\tprice: " << PriceToString(price) << '\n';
+        ss << indentString << "\texecuted_quantity: " << QuantityToString(executed_quantity) << '\n';
+        ss << indentString << "\tleaves_quantity: " << QuantityToString(leaves_quantity) << '\n';
+        ss << indentString << "}";
 
         return ss.str();
     };
+};
+
+struct OMClientResponse
+{
+    u64 sequenceNumber = 0;
+    MEClientResponse clientResponse;
+
+    inline auto ToString() const -> std::string
+    {
+        std::stringstream ss;
+
+        ss << "OMClientResponse {\n";
+        ss << "\tsequenceNumber : " << sequenceNumber << '\n';
+        ss << "\tclientResponse : " << clientResponse.ToString(1) << "\n";
+        ss << "}";
+
+        return ss.str();
+    }
 };
 
 #pragma pack(pop)

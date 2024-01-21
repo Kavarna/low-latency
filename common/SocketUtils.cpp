@@ -1,6 +1,6 @@
 #include "SocketUtils.h"
 
-#include <asm-generic/socket.h>
+#include <arpa/inet.h>
 #include <cerrno>
 #include <cstring>
 #include <fcntl.h>
@@ -33,7 +33,7 @@ std::string GetIFaceIP(std::string const &iface)
     return buf;
 }
 
-bool SetNonBlocking(int fd)
+bool SetNonBlocking(Socket fd)
 {
     const auto flags = fcntl(fd, F_GETFL, 0);
     if (flags == -1)
@@ -48,29 +48,37 @@ bool SetNonBlocking(int fd)
     return (fcntl(fd, F_SETFL, flags | O_NONBLOCK) != -1);
 }
 
-bool SetNoDelay(int fd)
+bool SetNoDelay(Socket fd)
 {
-    int one = 1;
+    i32 one = 1;
     return (setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one)) != -1);
 }
 
-bool SetSOTimestamp(int fd)
+bool SetSOTimestamp(Socket fd)
 {
-    int one = 1;
+    i32 one = 1;
     return (setsockopt(fd, SOL_SOCKET, SO_TIMESTAMP, &one, sizeof(one)) != -1);
 }
 
-bool SetTTL(int fd, int ttl)
+bool SetTTL(Socket fd, i32 ttl)
 {
     return (setsockopt(fd, IPPROTO_TCP, IP_TTL, &ttl, sizeof(ttl)) != -1);
 }
 
-bool SetMcastTTL(int fd, int ttl)
+bool SetMcastTTL(Socket fd, i32 ttl)
 {
     return (setsockopt(fd, IPPROTO_TCP, IP_MULTICAST_TTL, &ttl, sizeof(ttl)) != -1);
 }
 
-Socket CreateSocket(QuickLogger &logger, std::string const &t_ip, std::string const &iface, int port, bool isUdp,
+bool Join(Socket fd, std::string const &ip)
+{
+    ip_mreq mreq{};
+    mreq.imr_multiaddr.s_addr = inet_addr(ip.c_str());
+    mreq.imr_interface.s_addr = htonl(INADDR_ANY);
+    return (setsockopt(fd, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq)) != 1);
+}
+
+Socket CreateSocket(QuickLogger &logger, std::string const &t_ip, std::string const &iface, i32 port, bool isUdp,
                     bool isListening, bool needsSOTimestamp)
 {
     const auto ip = t_ip.empty() ? GetIFaceIP(iface) : t_ip;
@@ -78,7 +86,7 @@ Socket CreateSocket(QuickLogger &logger, std::string const &t_ip, std::string co
                "; isUdp = ", isUdp ? "TRUE" : "FALSE", "; isListening = ", isListening ? "TRUE" : "FALSE",
                "; needsSOTimestamp = ", needsSOTimestamp ? "TRUE" : "FALSE", '\n');
 
-    int flags = (isListening ? AI_PASSIVE : 0) | (AI_NUMERICHOST | AI_NUMERICSERV);
+    i32 flags = (isListening ? AI_PASSIVE : 0) | (AI_NUMERICHOST | AI_NUMERICSERV);
     addrinfo hints = {};
     hints.ai_flags = flags;
     hints.ai_family = AF_INET;
@@ -94,7 +102,7 @@ Socket CreateSocket(QuickLogger &logger, std::string const &t_ip, std::string co
     }
 
     Socket fdSocket = -1;
-    int one = 1;
+    i32 one = 1;
     for (addrinfo *rp = result; rp; rp = rp->ai_next)
     {
         fdSocket = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);

@@ -57,7 +57,7 @@ void MatchingEngine::Run()
         auto clientRequest = mClientRequests->GetNextRead();
         if (clientRequest)
         {
-            mLogger.Log("Processing request ", clientRequest->toString(), '\n');
+            mLogger.Log("Processing request ", clientRequest->ToString(), '\n');
             ProcessClientRequest(clientRequest);
             mClientRequests->UpdateReadIndex();
         }
@@ -66,6 +66,7 @@ void MatchingEngine::Run()
 
 void MatchingEngine::Start()
 {
+    mRunning = true;
     mRunningThread = CreateAndStartThread(-1, "Matching Engine", [&]() { this->Run(); });
     CHECK_FATAL(mRunningThread != nullptr, "Unable to start matching engine thread");
 }

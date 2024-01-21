@@ -35,7 +35,7 @@ void TCPServer::DeleteSocket(TCPSocket *tcpSocket)
     // RemoveElementFromArray(disconnectedSockets, tcpSocket);
 }
 
-void TCPServer::Listen(std::string const &iface, int port)
+void TCPServer::Listen(std::string const &iface, i32 port)
 {
     efd = epoll_create(1);
     CHECK_FATAL(efd >= 0, "Couldn't create an epoll error = ", strerror(errno));
@@ -48,9 +48,9 @@ void TCPServer::Listen(std::string const &iface, int port)
 
 void TCPServer::Poll()
 {
-    const int maxEvents = 1 + sendSockets.size() + receiveSockets.size();
+    const i32 maxEvents = 1 + sendSockets.size() + receiveSockets.size();
 
-    const int n = epoll_wait(efd, events, maxEvents, 0);
+    const i32 n = epoll_wait(efd, events, maxEvents, 0);
     bool haveNewCoonections = false;
     for (s32 i = 0; i < n; ++i)
     {

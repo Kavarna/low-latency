@@ -11,11 +11,24 @@ endif
 gtest_dep = dependency('gtest', main : true, required : false)
 
 incdir = include_directories('common')
-common_srcs = ['common/SocketUtils.cpp', 'common/TCPSocket.cpp', 'common/TCPServer.cpp']
+common_srcs = [
+  'common/SocketUtils.cpp',
+  'common/TCPSocket.cpp',
+  'common/TCPServer.cpp',
+  'common/MCastSocket.cpp'
+]
 
 test_srcs = ['common/tests/basic.cpp']
 
-exchange_srcs = ['exchange/main.cpp', 'exchange/matcher/MEOrder.cpp', 'exchange/matcher/MatchingEngine.cpp', 'exchange/matcher/MEOrderBook.cpp']
+exchange_srcs = [
+  'exchange/main.cpp',
+  'exchange/matcher/MEOrder.cpp',
+  'exchange/matcher/MatchingEngine.cpp',
+  'exchange/matcher/MEOrderBook.cpp',
+  'exchange/order_server/OrderServer.cpp',
+  'exchange/market_data/MarketDataPublisher.cpp',
+  'exchange/market_data/SnapshotSynthesizer.cpp'
+]
 
 lib = static_library('common', common_srcs)
 

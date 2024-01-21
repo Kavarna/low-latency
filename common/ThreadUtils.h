@@ -10,7 +10,7 @@
 #include "Logger.h"
 #include "Types.h"
 
-inline auto SetThreadCore(int coreId)
+inline auto SetThreadCore(i32 coreId)
 {
     cpu_set_t cpuset;
     CPU_ZERO(&cpuset);

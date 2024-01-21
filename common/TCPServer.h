@@ -21,7 +21,7 @@ public:
     TCPServer &operator=(const TCPServer &) = delete;
     TCPServer &operator=(const TCPServer &&) = delete;
 
-    void Listen(std::string const &iface, int port);
+    void Listen(std::string const &iface, i32 port);
 
     bool AddSocketToEpoll(TCPSocket *tcpSocket);
     bool RemoveSocketFromEpoll(TCPSocket *tcpSocket);
@@ -43,7 +43,7 @@ public:
         listenerSocket.Destroy();
     }
 
-    int efd = -1;
+    i32 efd = -1;
     TCPSocket listenerSocket;
     epoll_event events[1024];
 
