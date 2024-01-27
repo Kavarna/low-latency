@@ -2,9 +2,9 @@
 #include "Check.h"
 #include "Limits.h"
 #include "MCastSocket.h"
+#include "MarketUpdate.h"
 #include "ThreadUtils.h"
 #include "TimeUtils.h"
-#include "exchange/market_data/MarketUpdate.h"
 
 namespace Exchange
 {

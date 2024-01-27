@@ -2,10 +2,10 @@
 
 #include "Limits.h"
 #include "Logger.h"
+#include "MEOrder.h"
+#include "MarketUpdate.h"
 #include "MemoryPool.h"
 #include "Types.h"
-#include "exchange/market_data/MarketUpdate.h"
-#include "exchange/matcher/MEOrder.h"
 #include "exchange/order_server/ClientResponse.h"
 
 namespace Exchange

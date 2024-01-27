@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Logger.h"
-#include "exchange/market_data/MarketUpdate.h"
+#include "MarketUpdate.h"
 #include "exchange/matcher/MEOrderBook.h"
 #include "exchange/order_server/ClientRequest.h"
 #include "exchange/order_server/ClientResponse.h"

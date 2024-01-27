@@ -1,9 +1,9 @@
 #include "MEOrderBook.h"
 #include "Check.h"
 #include "Limits.h"
+#include "MEOrder.h"
+#include "MarketUpdate.h"
 #include "Types.h"
-#include "exchange/market_data/MarketUpdate.h"
-#include "exchange/matcher/MEOrder.h"
 #include "exchange/matcher/MatchingEngine.h"
 #include "exchange/order_server/ClientResponse.h"
 

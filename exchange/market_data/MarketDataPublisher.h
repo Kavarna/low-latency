@@ -2,8 +2,8 @@
 
 #include "Logger.h"
 #include "MCastSocket.h"
+#include "MarketUpdate.h"
 #include "Types.h"
-#include "exchange/market_data/MarketUpdate.h"
 #include "exchange/market_data/SnapshotSynthesizer.h"
 namespace Exchange
 {

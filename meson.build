@@ -22,12 +22,15 @@ test_srcs = ['common/tests/basic.cpp']
 
 exchange_srcs = [
   'exchange/main.cpp',
-  'exchange/matcher/MEOrder.cpp',
   'exchange/matcher/MatchingEngine.cpp',
   'exchange/matcher/MEOrderBook.cpp',
   'exchange/order_server/OrderServer.cpp',
   'exchange/market_data/MarketDataPublisher.cpp',
   'exchange/market_data/SnapshotSynthesizer.cpp'
+]
+
+trading_srcs = [
+  'trading/main.cpp'
 ]
 
 lib = static_library('common', common_srcs)
@@ -36,3 +39,4 @@ tester = executable('common_tests', sources: test_srcs, include_directories : in
 test('gtest test', tester)
 
 executable('exchange', sources: exchange_srcs, include_directories : incdir, link_with : lib)
+executable('trading', sources: trading_srcs, include_directories : incdir, link_with : lib)

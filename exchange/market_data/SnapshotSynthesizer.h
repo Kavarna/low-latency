@@ -3,10 +3,9 @@
 #include "Limits.h"
 #include "Logger.h"
 #include "MCastSocket.h"
+#include "MarketUpdate.h"
 #include "MemoryPool.h"
 #include "TimeUtils.h"
-#include "exchange/market_data/MarketUpdate.h"
-#include <cstddef>
 #include <thread>
 
 namespace Exchange

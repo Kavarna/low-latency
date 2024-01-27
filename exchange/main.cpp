@@ -2,24 +2,28 @@
 #include "Limits.h"
 #include "Logger.h"
 #include "exchange/market_data/MarketDataPublisher.h"
-#include "exchange/market_data/MarketUpdate.h"
 #include "exchange/matcher/MEOrderBook.h"
 #include "exchange/matcher/MatchingEngine.h"
 #include "exchange/order_server/ClientRequest.h"
 #include "exchange/order_server/ClientResponse.h"
 #include "exchange/order_server/OrderServer.h"
-#include <chrono>
 #include <csignal>
 #include <cstdlib>
-#include <thread>
 
 QuickLogger *gLogger = nullptr;
 Exchange::MatchingEngine *gMatchingEngine = nullptr;
 Exchange::MarketDataPublisher *gMarketDataPublisher = nullptr;
 Exchange::OrderServer *gOrderServer;
 
+bool gStartDestroying = false;
+
 extern "C" void InterruptHandler(int signal)
 {
+    if (gStartDestroying)
+        return;
+
+    gStartDestroying = true;
+
     SHOWINFO("Signal received: ", signal);
 
     SHOWINFO("Start deleting the market data publisher");
