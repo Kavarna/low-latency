@@ -47,9 +47,9 @@ struct MEOrder
         ss << indentString << "\tprice: " << PriceToString(price) << "\n";
         ss << indentString << "\tquantity: " << QuantityToString(quantity) << "\n";
         ss << indentString << "\tpriority: " << PriorityToString(priority) << "\n";
-        ss << indentString << "\tnextOrder: " << ((nextOrder != nullptr) ? nextOrder->ToString(indent + 1) : nullString)
-           << "\n";
         ss << indentString << "\tprevOrder: " << ((prevOrder != nullptr) ? prevOrder->ToString(indent + 1) : nullString)
+           << "\n";
+        ss << indentString << "\tnextOrder: " << ((nextOrder != nullptr) ? nextOrder->ToString(indent + 1) : nullString)
            << "\n";
         ss << indentString << "}";
 
@@ -57,7 +57,6 @@ struct MEOrder
     }
 };
 
-// Maybe use market order id as key?
 using OrderHashMap = std::array<MEOrder *, ME_MAX_ORDER_IDS>;
 using ClientOrderHashMap = std::array<OrderHashMap, ME_MAX_NUM_CLIENTS>;
 

@@ -35,10 +35,10 @@ public:
     MEOrderBook &operator=(const MEOrderBook &) = delete;
     MEOrderBook &operator=(const MEOrderBook &&) = delete;
 
-private:
     void Add(ClientId clientId, OrderId clientOrderId, TickerId tickerId, Side side, Price price, Quantity qty);
     void Cancel(ClientId clientId, OrderId clientOrderId, TickerId tickerId);
 
+private:
     Quantity CheckForMatch(ClientId clientId, OrderId clientOrderId, TickerId tickerId, Side side, Price price,
                            Quantity qty, OrderId marketOrderId);
 

@@ -116,6 +116,7 @@ void SnapshotSynthesizer::PublishSnapshot()
     {
         startMaketUpdate.sequenceNumber = snapshotSize++;
         startMaketUpdate.marketUpdate.type = MarketUpdateType::SNAPSHOT_START;
+        startMaketUpdate.marketUpdate.orderId = mLastSequenceIncrementalNumber;
     }
     mSnapshotSocket.Send(&startMaketUpdate, sizeof(MPDMarketUpdate));
     mLogger.Log("Sending start update: ", startMaketUpdate.ToString(), "\n");
@@ -153,8 +154,9 @@ void SnapshotSynthesizer::PublishSnapshot()
 
     MPDMarketUpdate stopMarketUpdate{};
     {
-        startMaketUpdate.sequenceNumber = snapshotSize++;
-        startMaketUpdate.marketUpdate.type = MarketUpdateType::SNAPSHOT_END;
+        stopMarketUpdate.sequenceNumber = snapshotSize++;
+        stopMarketUpdate.marketUpdate.type = MarketUpdateType::SNAPSHOT_END;
+        stopMarketUpdate.marketUpdate.orderId = mLastSequenceIncrementalNumber;
     }
 
     mSnapshotSocket.Send(&stopMarketUpdate, sizeof(stopMarketUpdate));

@@ -24,11 +24,15 @@ MatchingEngine::~MatchingEngine()
 
 void MatchingEngine::ProcessClientRequest(MEClientRequest *request)
 {
+    auto orderBook = mOrderBook[request->tickerId];
     switch (request->type)
     {
     case ClientRequestType::NEW:
+        orderBook->Add(request->clientId, request->orderId, request->tickerId, request->side, request->price,
+                       request->quantity);
         break;
     case ClientRequestType::CANCEL:
+        orderBook->Cancel(request->clientId, request->orderId, request->tickerId);
         break;
     case ClientRequestType::INVALID:
         mLogger.Log("Invalid client request received\n");
