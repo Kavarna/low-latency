@@ -134,7 +134,7 @@ public:
         PushValue(LogElement{LogElementType::FLOAT, {.f = c}});
     }
 
-    void PushValue(double const c)
+    void PushValue(f64 const c)
     {
         PushValue(LogElement{LogElementType::DOUBLE, {.d = c}});
     }

@@ -48,7 +48,7 @@ TEST(Basic, MemoryPoolExample)
 
     for (u32 i = 0; i < 50; ++i)
     {
-        double *elem1 = primPool.Allocate((f64)i * 3);
+        f64 *elem1 = primPool.Allocate((f64)i * 3);
         MyStruct *elem2 = structPool.Allocate(i * 3, i * 3 + 1, i * 3 + 2);
 
         SHOWINFO("elem1: ", *elem1, " allocated at: ", elem1);

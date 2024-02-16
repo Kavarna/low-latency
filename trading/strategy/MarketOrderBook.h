@@ -30,6 +30,11 @@ public:
 
     void OnMarketUpdate(Exchange::MEMarketUpdate *marketUpdate);
 
+    BestBidOffer const &GetBestBidOffer() const
+    {
+        return mBestBidOffer;
+    }
+
 private:
     void AddOrder(MarketOrder *order);
     void RemoveOrder(MarketOrder *order);

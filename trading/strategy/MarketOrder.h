@@ -42,7 +42,7 @@ struct MarketOrder
            << "\n";
         ss << indentString << "\tnextOrder: " << ((nextOrder != nullptr) ? nextOrder->ToString(indent + 1) : nullString)
            << "\n";
-        ss << indentString << "}\n";
+        ss << indentString << "}";
 
         return ss.str();
     };
@@ -90,7 +90,7 @@ struct BestBidOffer
     Quantity bidQuantity = Quantity_INVALID;
     Quantity askQuantity = Quantity_INVALID;
 
-    auto ToString() -> std::string
+    auto ToString() const -> std::string
     {
         std::stringstream ss;
         ss << "BestBidOffer {\n"

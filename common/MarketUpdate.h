@@ -86,7 +86,7 @@ struct MPDMarketUpdate
         std::stringstream ss;
 
         ss << "MPDMarketUpdate {\n";
-        ss << "\tsequenceNumber : " << sequenceNumber << '\n';
+        ss << "\tsequenceNumber : " << sequenceNumber << "\n";
         ss << "\tmarketUpdate : " << marketUpdate.ToString(1) << "\n";
         ss << "}";
 

@@ -33,7 +33,10 @@ trading_srcs = [
   'trading/main.cpp',
   'trading/market_data/MarketDataConsumer.cpp',
   'trading/strategy/MarketOrderBook.cpp',
-  'trading/order_gateway/OrderGateway.cpp'
+  'trading/order_gateway/OrderGateway.cpp',
+  'trading/strategy/FeatureEngine.cpp',
+  'trading/strategy/PositionKeeper.cpp',
+  'trading/strategy/OrderManager.cpp',
 ]
 
 lib = static_library('common', common_srcs)

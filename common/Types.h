@@ -83,7 +83,8 @@ enum class Side : i8
 {
     INVALID = 0,
     BUY = 1,
-    SELL = -1
+    SELL = -1,
+    MAX = 2
 };
 inline auto SideToString(Side side) -> std::string
 {
@@ -95,6 +96,16 @@ inline auto SideToString(Side side) -> std::string
         return "BUY";
     case Side::SELL:
         return "SELL";
+    case Side::MAX:
+        return "MAX";
     }
     return "UNKNOWN";
+}
+constexpr inline auto SideToIndex(Side side) -> u32
+{
+    return static_cast<u32>(side) + 1;
+}
+constexpr inline auto SideToValue(Side side) -> i32
+{
+    return static_cast<i32>(side);
 }
