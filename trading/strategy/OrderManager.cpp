@@ -4,6 +4,7 @@
 #include "exchange/order_server/ClientRequest.h"
 #include "exchange/order_server/ClientResponse.h"
 #include "trading/strategy/OMOrder.h"
+#include "trading/strategy/TradeEngine.h"
 
 namespace Trading
 {
@@ -19,7 +20,7 @@ void OrderManager::NewOrder(OMOrder *order, TickerId tickerId, Price price, Side
         request.side = side;
         request.quantity = quantity;
     }
-    /* TODO: send the request to the trade engine */
+    mTradeEngine->SendClientRequest(&request);
 
     *order = {tickerId, mNextOrderId, side, price, quantity, OMOrderState::PENDING_NEW};
     ++mNextOrderId;
@@ -39,7 +40,7 @@ void OrderManager::CancelOrder(OMOrder *order)
         request.side = order->side;
         request.quantity = order->quantity;
     }
-    /* TODO: send request to the trade engine */
+    mTradeEngine->SendClientRequest(&request);
 
     order->state = OMOrderState::PENDING_CANCEL;
     mLogger->Log("OrderManager::CancelOrder: ", order->ToString(), "\n");

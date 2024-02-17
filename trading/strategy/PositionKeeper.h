@@ -107,7 +107,7 @@ struct PositionInfo
         logger->Log("PositionInfo::AddFill(", clientResponse->ToString(), ")\n");
     }
 
-    void UpdateBestBidOffer(BestBidOffer *bbo, QuickLogger *logger)
+    void UpdateBestBidOffer(BestBidOffer const *bbo, QuickLogger *logger)
     {
         this->bbo = bbo;
 
@@ -151,7 +151,7 @@ public:
         mTickerPositions[clientResponse->tickerId].AddFill(clientResponse, mLogger);
     }
 
-    void UpdateBestBidOffer(TickerId tickerId, BestBidOffer *bbo)
+    void UpdateBestBidOffer(TickerId tickerId, BestBidOffer const *bbo)
     {
         mTickerPositions[tickerId].UpdateBestBidOffer(bbo, mLogger);
     }

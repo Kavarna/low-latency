@@ -1,6 +1,7 @@
 #include "MarketOrderBook.h"
 #include "Limits.h"
 #include "MarketUpdate.h"
+#include "TradeEngine.h"
 #include "Types.h"
 
 namespace Trading
@@ -228,7 +229,7 @@ void MarketOrderBook::OnMarketUpdate(Exchange::MEMarketUpdate *marketUpdate)
         break;
     }
     case Exchange::MarketUpdateType::TRADE: {
-        // Should call onTrade on the trading engine
+        mTradeEngine->OnTradeUpdate(marketUpdate, this);
         break;
     }
     case Exchange::MarketUpdateType::CLEAR: {
@@ -274,7 +275,7 @@ void MarketOrderBook::OnMarketUpdate(Exchange::MEMarketUpdate *marketUpdate)
 
     mLogger->Log("MarketOrderBook::OnMarketUpdate: ", marketUpdate->ToString(), "\n");
 
-    // Should call onOrderBookUpdate on trade engine
+    mTradeEngine->OnOrderBookUpdate(marketUpdate->tickerId, marketUpdate->price, marketUpdate->side, this);
 }
 
 } // namespace Trading

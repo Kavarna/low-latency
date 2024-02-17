@@ -59,7 +59,7 @@ enum class RiskCheckResult : i8
     ALLOWED
 };
 
-std::string RiskCheckResultToString(RiskCheckResult result)
+inline std::string RiskCheckResultToString(RiskCheckResult result)
 {
     switch (result)
     {
@@ -113,8 +113,7 @@ using TickerRiskInfoHashMap = std::array<RiskInfo, ME_MAX_TICKERS>;
 class RiskManager
 {
 public:
-    RiskManager(QuickLogger *logger, PositionKeeper *positionKeeper, TradeEngineConfigHashMap &tickerConfigs)
-        : mLogger(logger)
+    RiskManager(PositionKeeper *positionKeeper, TradeEngineConfigHashMap &tickerConfigs)
     {
         for (TickerId i = 0; i < ME_MAX_TICKERS; ++i)
         {
@@ -128,8 +127,9 @@ public:
         return mTickerRisk[tickerId].CheckPreTradeRisk(side, qty);
     }
 
+    ~RiskManager() = default;
+
 private:
-    QuickLogger *mLogger;
     TickerRiskInfoHashMap mTickerRisk;
 };
 } // namespace Trading
